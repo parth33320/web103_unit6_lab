@@ -15,11 +15,19 @@ const CreateTrip = () => {
         })
     }
     
-    const createTrip = (event) => {
+    const createTrip = async (event) => {
         event.preventDefault();
 
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(trip)
+        };
 
-        
+        await fetch('/api/trips', options);
+        window.location.href = '/';
     }
 
 

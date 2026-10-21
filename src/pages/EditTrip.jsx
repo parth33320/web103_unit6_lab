@@ -8,8 +8,12 @@ const EditTrip = ({data}) => {
     const [post, setPost] = useState({id: 0, title: "", description: "", img_url: "", num_days: 0, start_date: "", end_date: "", total_cost: 0.0 })
 
     useEffect(() => {
-        const result = data.filter(item => item.id === parseInt(id))[0];
-        setPost({id: parseInt(result.id), title: result.title, description: result.description, img_url: result.img_url, num_days: parseInt(result.num_days), start_date: result.start_date.slice(0,10), end_date: result.end_date.slice(0,10), total_cost: result.total_cost});
+        if (data && data.length > 0) {
+            const result = data.filter(item => item.id === parseInt(id))[0];
+            if (result) {
+                setPost({id: parseInt(result.id), title: result.title, description: result.description, img_url: result.img_url, num_days: parseInt(result.num_days), start_date: result.start_date.slice(0,10), end_date: result.end_date.slice(0,10), total_cost: result.total_cost});
+            }
+        }
     }, [data, id]);
 
 
@@ -24,18 +28,31 @@ const EditTrip = ({data}) => {
     }
     
 
-    const updatePost = (event) => {
+    const updatePost = async (event) => {
         event.preventDefault();
 
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(post)
+        };
 
-
+        await fetch('/api/trips/' + id, options);
+        window.location.href = '/';
     }
 
 
-    const deletePost = (event) => {
+    const deletePost = async (event) => {
         event.preventDefault();
 
-        
+        const options = {
+            method: 'DELETE'
+        };
+
+        await fetch('/api/trips/' + id, options);
+        window.location.href = '/';
     }
 
     return (

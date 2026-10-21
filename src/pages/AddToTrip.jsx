@@ -15,7 +15,7 @@ const AddToTrip = (props) => {
         <div className="AddToTrip">
             {
                 trips && trips.length > 0 ?
-                trips.map((trip,index) => 
+                trips.map((trip) =>
                    <AddTripOptionCard key={trip.id} 
                          id={trip.id} 
                          title={trip.title} 
