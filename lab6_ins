@@ -1,0 +1,336 @@
+Skip to main content
+CodePath
+Student Hub
+Courses
+Applications
+Career
+Member ID 154815
+
+Parth Patel
+Courses
+Quick Links
+Quick Actions
+WEB103 | Advanced Web Development
+Advanced Web Development Fall 2026 (@ Section 1 | Wednesdays 3PM - 5PM PT)
+Personal Member ID#: 154815
+Need help? Post on our Class Slack Channel or email us at support@codepath.org
+
+Getting Started
+Learning with AI ✨
+Course Info
+ Course Progress
+Individual
+Capstone Project
+Unit 5  
+Unit 6  
+Unit 7  
+Unit 8  
+Unit 9  
+Unit 10  
+ Schedule
+ 
+ Overview
+Lab
+Capstone Project
+ Resources
+ Report
+Unit 6 Lab: On The Fly, Part 2
+Overview
+Last unit's lab was all about the backend development for ✈️ On the Fly. But the interface can be just as important as the functionality. In this lab, you'll hook up the various actions supported by the API to components on the frontend. This task involves building out the frontend routes and logic using React conventions and the async/await design pattern with axios or fetch. After this lab, ✈️ On the Fly will be one step closer to launch!
+
+🎯 Goals
+By the end of this lab you will be able to...
+
+Implement CRUD (Create, Read, Update, Delete) operations.
+Use data association and manipulation techniques to link available destinations with trips.
+Display dynamic data in a React user interface.
+Features
+Required Features
+Users can view all active trips.
+Users can create, view, update, and delete a trip.
+Users can assign a cost, date, and description to a trip.
+Users can choose from a list of available destinations to assign to a trip.
+Users can view all trips associated with a given destination.
+Users can view a trip's budget, description, date, and entertainment options.
+Users can upvote entertainment options to help the group decide the destination.
+Stretch Features
+User can add photos and videos to trips.
+User can add comments to trips.
+User can search for trips by destination.
+User can filter trips by budget, date, and other criteria.
+Resources
+🔗 HTTP Request Methods
+🔗 MDN Web Docs: Fetch API
+🔗 MDN Web Docs: JSON.stringify()
+
+Lab Instructions
+Required Features
+If you weren't able to complete the Week 5 Lab, download the Week 5 Lab Exemplar for a fresh start on the Week 6 Lab!
+Step 0: Download the starter code
+⭐⭐ Download the starter code from this GitHub repo. Choose the option to Download ZIP rather than cloning so you can copy and paste the files into your existing On the Fly project.
+In your On the Fly project, create a new folder in the root directory called client.
+Copy and paste the code you downloaded into the client folder you created.
+In the terminal, navigate to the client directory.
+Install the dependencies using the command npm install in the terminal.
+Start the app using the command npm run dev in the terminal.
+In a different terminal tab or window, navigate to your server directory and run the Express server as usual with npm start.
+📍 Checkpoint 0: Right now, the web app displays a header, navigation buttons, and the message "No Trips Yet" on the Explore Trips page and the message "No Destinations Yet" on the Explore Destinations page.
+running the starter code
+
+Step 1: Read all trips
+⚠️ ️️️️Before continuing, make sure to suspend any active Postgres databases that aren't related to your current lab or project. Render's free tier only allows for one active Postgres database at a time.
+
+Want to confirm the procedure? Check it out here ⤵️
+In this step, we'll make an HTTP request to the server to read all the data from the trips data and display it on the home page.
+
+In the src/App.jsx file:
+
+
+Inside the useEffect hook, create an asynchronous function called fetchTrips().
+
+
+In fetchTrips(), make a fetch request to the /api/trips endpoint and store the result in a variable called response.
+
+Note: By default, fetch() makes a GET request, so we do not need to specify the HTTP method.
+
+Parse the response as a JSON using the .json() method and store the results into a variable called data.
+
+
+Set the state variable trips to data by calling setTrips.
+
+
+At the end of the useEffect hook, call the fetchTrips() function.
+
+AI opportunity
+
+Use AI as a pair programming partner
+📍 Checkpoint 1: Now the web app displays the trips from our database! 🎉
+reading all trips from the database
+
+Your useEffect hook should look like this 👇🏽
+Step 2: Create a trip
+In this step, we'll send data from a form to create a new trip in a request body when making an HTTP request.
+
+In the pages/CreateTrip.jsx file:
+
+
+Find the event handling function called createTrip().
+
+
+In createTrip(), create a JSON called options.
+
+const options = {
+
+}
+
+In options:
+
+
+Create a key called method and set its value to 'POST'.
+
+const options = {
+  method: 'POST'
+}
+
+Create another key called headers and set its value to a JSON that has a key 'Content-Type' and value 'application/json'.
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}
+
+Create a key called body and set its value to stringified JSON of trip.
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(trip)
+}
+
+Make a fetch request to the /api/trips endpoint, passing the endpoint as the first parameter and the options variable as the second parameter.
+
+fetch('/api/trips', options)
+
+Redirect the user to the home page.
+
+window.location.href = '/'
+📍 Checkpoint 2: We can now create a new trip! 🎉
+creating a trip
+
+Your createTrip() function should look like this 👇🏽
+Step 3: Update and delete a trip
+In this step, we'll send data from a form to update and delete a given trip. We'll send the data in a request body when making the HTTP request and add parameters to request URL.
+
+In the pages/EditTrip.jsx file:
+
+Find the event handling function called updateTrip.
+In updateTrip(), create a JSON called options.
+In options,
+Create a key called method. This time, set its value to 'PATCH'.
+Create a key called headers and set its value to a JSON that has a key 'Content-Type' and value 'application/json'.
+Create a key called body and set its value to stringified JSON of trip.
+AI opportunity
+
+Use AI as a pair programming partner
+Make a fetch request to the /api/trips endpoint. Concatenate the id to the end of the URL and pass it as the first parameter and the options variable as the second parameter.
+Redirect the user to the home page.
+Next, let's update the delete event handler.
+
+Find the event handling function called deleteTrip.
+In deleteTrip(), create a JSON called options.
+In options, create a key called method and set its value to 'DELETE'.
+AI opportunity
+
+Use AI as a pair programming partner
+Make a fetch request to the /api/trips endpoint. Concatenate the id to the end of the URL and pass it as the first parameter and the options variable as the second parameter.
+📍 Checkpoint 3: Now users can edit and delete a trip! 🎉
+updating and deleting a trip
+
+Your updateTrip() and deleteTrip() functions should look like this 👇🏽
+Step 4: Create a new destination
+So the user can create a trip, but right now they can't create destinations. The CreateDestination component is already set up with a form for users to enter details about a destination — you can reach it from the + Add Destination button in the header — but we need to hook this form up to send the data to the server. In this step, we'll write the createDestination() event handler to save a new destination to the destinations table.
+
+💡 Note: Creating a destination just adds it to the shared list of destinations. Associating a destination with a specific trip happens separately in Step 6, when a user clicks + Add to Trip.
+In the /pages/CreateDestination.jsx file:
+
+Find the event handling function called createDestination().
+In createDestination(), create a JSON called options.
+In options:
+Create a key called method and set its value to 'POST'.
+Create a key called headers and set its value to a JSON that has a key 'Content-Type' and value 'application/json'.
+Create a key called body and set its value to stringified JSON of destination.
+AI opportunity
+
+Use AI as a pair programming partner
+
+Make a fetch request to the /api/destinations endpoint, passing the URL as the first parameter and the options variable as the second parameter.
+
+
+Redirect the user to the Destinations page.
+
+window.location.href = '/destinations'
+📍 Checkpoint 4: Now the user can create a new destination! 🎉
+creating a new destination
+
+Your createDestination() function should look like this 👇🏽
+Step 5: Get all destinations
+In this step, we'll make an HTTP request to the server to read all the data from the destinations table and display it on the Destination page.
+
+In the App.jsx file:
+
+Create an asynchronous function called fetchDestinations inside the useEffect() function.
+In fetchDestinations(), make a fetch request to the /api/destinations endpoint and store the result in a variable called response.
+Parse the response as a JSON using the json() method and store the results into a variable called data.
+Set the state variable destinations to data by calling setDestinations.
+At the end of the useEffect hook, call the fetchDestinations() function.
+AI opportunity
+
+Use AI to brainstorm ideas for your code
+📍 Checkpoint 5: Now our Destinations page shows all the destinations that have been added! 🎉
+getting all destinations
+
+Your fetchDestinations() function should look like this 👇🏽
+Step 6: Add destinations to a trip
+The Destinations page shows all the destinations that have been created. A user might see a destination here that they want to add to their own trip! Each destination on the Destinations page has a + Add to Trip button, but we need to implement its functionality. We want the user to be able to click this button, then choose the trip they want to add the destination to.
+
+In the /components/AddTripOptionCard.jsx file:
+
+Find the event handling function called addToTrip().
+In addToTrip(), create a JSON called options.
+In options:
+Create a key called method and set its value to 'POST'.
+Create a key called headers and set its value to a JSON that has a key 'Content-Type' and value 'application/json'.
+Create a key called body and set its value to a stringified JSON with the trip_id and destination_id.
+AI opportunity
+
+Use AI as a pair programming partner
+Make a fetch request to the /api/trips-destinations endpoint, passing the URL as the first parameter and the options variable as the second parameter. Store the response in a variable called response.
+Redirect the user to the home page.
+📍 Checkpoint 6: We can now create a new destination and add it to a trip! 🎉
+adding destinations to a trip
+
+Your addToTrip() function should look like this 👇🏽
+Step 7: Show the destinations and activities for a trip
+When we add a destination to a trip, we can see the destination on the Explore Destinations page, but we can't see the destinations on the trip details...yet! In this step, we'll update the TripDetails page to retrieve the associated activities and destinations and display these on the trip.
+
+In the /pages/TripDetails.jsx file:
+
+Find the fetchActivities() function in the useEffect hook.
+In the fetchActivities() function:
+Make a fetch request to the /api/activities/ endpoint and append the id to the end of the URL.
+Parse the response as a JSON using the json() method and store the results into a variable called data.
+Set the state variable activities to data by calling setActivities.
+In the fetchDestinations() function:
+Make a fetch request to the /api/trips-destinations/destinations endpoint and append the id to the end of the URL.
+Parse the response as a JSON using the json() method and store the results into a variable called data.
+Set the state variable destinations to data by calling setDestinations.
+📍 Checkpoint 7: Now users can see the activities and destinations that have been added to a trip! 🎉
+showing the destinations and activities for a trip
+
+Your fetchActivities() and fetchDestinations() functions should look like this 👇🏽
+Step 8: Create a new activity
+Now that trips have destinations, let's let users add activities to a trip. In this step, we'll hook up the CreateActivity form to send a new activity to the server, just like we did when creating a trip.
+
+In the pages/CreateActivity.jsx file:
+
+Find the event handling function called createActivity().
+In createActivity(), create a JSON called options.
+In options:
+Create a key called method and set its value to 'POST'.
+Create a key called headers and set its value to a JSON that has a key 'Content-Type' and value 'application/json'.
+Create a key called body and set its value to a stringified JSON with the activity.
+Make a fetch request to the /api/activities endpoint and append the trip_id to the URL. Pass the options variable as the second parameter, and store the response in a variable called response.
+Redirect the user to the home page.
+📍 Checkpoint 8: We can now create a new activity for a trip! 🎉
+creating a new activity
+
+Your createActivity() function should look like this 👇🏽
+const createActivity = async (event) => {
+  event.preventDefault()
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(activity)
+  }
+
+  fetch('/api/activities/' + trip_id, options)
+  window.location.href = '/'
+}
+Step 9: Update the number of votes for an activity
+Now, we'll update the ActivityBtn component to increment the vote count for a specific activity. We'll use a PATCH request to update this count on the server side and increment a state variable on the client side.
+
+In the /components/ActivityBtn.jsx file:
+
+Find the event handling function called updateCount().
+In updateCount(), create a JSON called options.
+In options:
+Create a key called method and set its value to 'PATCH'.
+Create a key called headers and set its value to a JSON that has a key 'Content-Type' and value 'application/json'.
+Create a key called body and set its value to stringified JSON with num_votes incremented by 1.
+Make a fetch request to the /api/activities endpoint, passing the URL as the first parameter with the ID concatenated to it and the options variable as the second parameter.
+Increment the num_vote state variable by 1 on the client side.
+📍 Checkpoint 9: Now users can vote on an activity! 🎉
+updating the number of votes for an activity
+
+Your updateCount() function should look like this 👇🏽
+const updateCount = () => {
+  const options = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({num_votes: num_votes + 1})
+  }
+
+  fetch('/api/activities/' + props.id, options)
+  setNumVotes((num_votes) => num_votes + 1)
+}
+🎉🎉🎉 Congratulations, you've completed this lab! 🎉🎉🎉
+💡 TIP: Remember to come back and reference this lab when you need to do similar things in your project!
