@@ -16,10 +16,18 @@ const CreateDestination = () => {
     }
     
     const createDestination = async (event) => {
-
         event.preventDefault();
 
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(destination)
+        };
 
+        await fetch('/api/destinations', options);
+        window.location.href = '/destinations';
     }
 
     return (
